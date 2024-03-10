@@ -9,7 +9,7 @@ Programul afiseaza un patrat pe care il translateaza pe axa x la apasarea sageti
 #include "glu.h"
 #include "glaux.h"
 
-static GLfloat x = 0,y=0,r=0;
+static GLfloat x = 0, y = 0, r = 0;
 
 void myInit() {
     glClearColor(1.0, 1.0, 1.0, 1.0);
@@ -50,7 +50,7 @@ void CALLBACK display()
 
     glTranslatef(x, y, 0.0);
 
-   glRotatef(r, 0, 0, 1);
+    glRotatef(r, 0, 0, 1);
 
     //glBegin(GL_QUADS);
     //{
@@ -63,16 +63,41 @@ void CALLBACK display()
     //    glColor3f(0.0, 1.0, 0.0);
     //    glVertex2f(100.0, 150.0);
     //}
+    //glEnd();
 
-    glBegin(GL_POLYGON);
+    //glBegin(GL_POLYGON);
+    //{
+    //    glColor3f(1.0, 0.0, 0.0);
+    //    for (double i = 0; i <= 360; i += 1)
+    //        glVertex2f(50 * cos(i * 3.1415 / 180),50 * sin(i * 3.1415 / 180));
+    //}
+    //glEnd();
+
+
+    glBegin(GL_TRIANGLE_STRIP);
     {
-        glColor3f(1.0, 0.0, 0.0);
-        for (double i = 0; i <= 360; i += 1)
-            glVertex2f(50 * cos(i * 3.1415 / 180), 50 * sin(i * 3.1415 / 180));
-    }
+        for (double i = 0; i <= 360; i += 1) { //45
 
+            glColor3f(1.0, 0.0, 0.0);
+            glVertex2f(50 * cos(i * 3.1415 / 180), 30 * sin(i * 3.1415 / 180));
+            glColor3f(1.0, 1.0, 0.0);
+            glVertex2f(0+50 * cos(i * 3.1415 / 180) * 1.0, 100 + 30 * sin(i * 3.1415 / 180)*1.0); //0,100    1.0
+        }
+    }
     glEnd();
 
+    glPointSize(2.0);
+    glBegin(GL_POINTS);
+    {
+        glColor3f(0.0, 0.0, 0.0);
+        for (double i = 0; i <= 360; i += 15) {
+            glVertex2f(50 * cos(i * 3.1415 / 180), 30 * sin(i * 3.1415 / 180));
+            glVertex2f(50 * cos(i * 3.1415 / 180), 100 + 30 * sin(i * 3.1415 / 180));
+        }
+    }
+    glEnd();
+
+    
     glFlush();
 }
 
