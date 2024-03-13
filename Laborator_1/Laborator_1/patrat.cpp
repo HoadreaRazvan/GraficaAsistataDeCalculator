@@ -65,18 +65,19 @@ void CALLBACK display()
     //}
     //glEnd();
 
-    //glBegin(GL_POLYGON);
+
+    //glBegin(GL_LINE_LOOP);
     //{
     //    glColor3f(1.0, 0.0, 0.0);
     //    for (double i = 0; i <= 360; i += 1)
-    //        glVertex2f(50 * cos(i * 3.1415 / 180),50 * sin(i * 3.1415 / 180));
+    //        glVertex2f(50 * sin(i * 3.1415 / 180),50 * cos(i * 3.1415 / 180));
     //}
     //glEnd();
 
 
     glBegin(GL_TRIANGLE_STRIP);
     {
-        for (double i = 0; i <= 360; i += 1) { //45
+        for (double i = 0; i <= 360; i += 90) { //45
 
             glColor3f(1.0, 0.0, 0.0);
             glVertex2f(50 * cos(i * 3.1415 / 180), 30 * sin(i * 3.1415 / 180));
@@ -86,16 +87,16 @@ void CALLBACK display()
     }
     glEnd();
 
-    glPointSize(2.0);
-    glBegin(GL_POINTS);
-    {
-        glColor3f(0.0, 0.0, 0.0);
-        for (double i = 0; i <= 360; i += 15) {
-            glVertex2f(50 * cos(i * 3.1415 / 180), 30 * sin(i * 3.1415 / 180));
-            glVertex2f(50 * cos(i * 3.1415 / 180), 100 + 30 * sin(i * 3.1415 / 180));
-        }
-    }
-    glEnd();
+    //glPointSize(2.0);
+    //glBegin(GL_POINTS);
+    //{
+    //    glColor3f(0.0, 0.0, 0.0);
+    //    for (double i = 0; i <= 360; i += 15) {
+    //        glVertex2f(50 * cos(i * 3.1415 / 180), 30 * sin(i * 3.1415 / 180));
+    //        glVertex2f(50 * cos(i * 3.1415 / 180), 100 + 30 * sin(i * 3.1415 / 180));
+    //    }
+    //}
+    //glEnd();
 
     
     glFlush();
