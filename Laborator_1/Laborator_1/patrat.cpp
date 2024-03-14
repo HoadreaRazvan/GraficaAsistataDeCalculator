@@ -42,63 +42,127 @@ void CALLBACK MutaJos()
     y = y - 10;
 }
 
-void CALLBACK display()
+void CALLBACK cerc()
 {
-    glClear(GL_COLOR_BUFFER_BIT);
+    glBegin(GL_POLYGON);
+    {
+        glColor3f(1.0, 0.0, 0.0);
+        for (double i = 0; i <= 360; i += 1)
+            glVertex2f(50 * sin(i * 3.1415 / 180), 50 * cos(i * 3.1415 / 180));
+    }
+    glEnd();
+}
 
-    glLoadIdentity();
-
-    glTranslatef(x, y, 0.0);
-
-    glRotatef(r, 0, 0, 1);
-
-    //glBegin(GL_QUADS);
-    //{
-    //    glColor3f(1.0, 0.0, 0.0);
-    //    glVertex2f(100, 100);
-    //    glColor3f(1.0, 1.0, 0.0);
-    //    glVertex2f(150.0, 100.0);
-    //    glColor3f(0.0, 0.0, 1.0);
-    //    glVertex2f(150.0, 150.0);
-    //    glColor3f(0.0, 1.0, 0.0);
-    //    glVertex2f(100.0, 150.0);
-    //}
-    //glEnd();
-
-
-    //glBegin(GL_LINE_LOOP);
-    //{
-    //    glColor3f(1.0, 0.0, 0.0);
-    //    for (double i = 0; i <= 360; i += 1)
-    //        glVertex2f(50 * sin(i * 3.1415 / 180),50 * cos(i * 3.1415 / 180));
-    //}
-    //glEnd();
-
-
+void CALLBACK paralelipiped()
+{
     glBegin(GL_TRIANGLE_STRIP);
     {
-        for (double i = 0; i <= 360; i += 90) { //45
+        for (double i = 0; i <= 360; i += 90) {
 
             glColor3f(1.0, 0.0, 0.0);
             glVertex2f(50 * cos(i * 3.1415 / 180), 30 * sin(i * 3.1415 / 180));
             glColor3f(1.0, 1.0, 0.0);
-            glVertex2f(0+50 * cos(i * 3.1415 / 180) * 1.0, 100 + 30 * sin(i * 3.1415 / 180)*1.0); //0,100    1.0
+            glVertex2f(0 + 50 * cos(i * 3.1415 / 180) * 1.0, 100 + 30 * sin(i * 3.1415 / 180) * 1.0);
         }
     }
     glEnd();
+}
 
-    //glPointSize(2.0);
-    //glBegin(GL_POINTS);
+void CALLBACK cilindru()
+{
+    glBegin(GL_TRIANGLE_STRIP);
+    {
+        for (double i = 0; i <= 360; i += 1) {
+
+            glColor3f(1.0, 0.0, 0.0);
+            glVertex2f(50 * cos(i * 3.1415 / 180), 30 * sin(i * 3.1415 / 180));
+            glColor3f(1.0, 1.0, 0.0);
+            glVertex2f(0 + 50 * cos(i * 3.1415 / 180) * 1.0, 100 + 30 * sin(i * 3.1415 / 180) * 1.0);
+        }
+    }
+    glEnd();
+}
+
+void CALLBACK sfera()
+{
+    //m1
+    GLfloat r = 160, rr = 0;
+    glBegin(GL_LINE_STRIP);
+    for (int i = 0; i <= 360; i += 1)
+    {
+        rr = 0;
+
+        for (int j = -r / 2; j <= r / 2; j += r * 0.2) {
+            if (j == -r / 2)
+                glColor3f(1.0, 0.0, 0.0);
+            else
+                if (j == r / 2)
+                    glColor3f(1.0, 1.0, 0.0);
+
+            glVertex2f(j + rr * 0.3 * cos(i * 3.1415 / 180), rr * sin(i * 3.1415 / 180));
+
+            //rr = sin(i * 3.1415 / 180 ...     ); ?
+            rr += 10;
+        }
+
+        //m2 cerc rotate
+
+    }
+    glEnd();
+}
+
+void CALLBACK test()
+{
+    glBegin(GL_LINE_STRIP);
+    for(int ii=50,jj=10;ii>=10 && jj<=50 ;ii--,jj++)
+    {
+        glColor3f(1.0, 0.0, 0.0);
+        for (double i = 0; i <= 360; i += 1)
+            glVertex2f(ii * sin(i * 3.1415 / 180), jj * cos(i * 3.1415 / 180));
+    }
+    glEnd();
+
+    //glBegin(GL_LINE_STRIP);
     //{
-    //    glColor3f(0.0, 0.0, 0.0);
-    //    for (double i = 0; i <= 360; i += 15) {
-    //        glVertex2f(50 * cos(i * 3.1415 / 180), 30 * sin(i * 3.1415 / 180));
-    //        glVertex2f(50 * cos(i * 3.1415 / 180), 100 + 30 * sin(i * 3.1415 / 180));
+    //    glColor3f(1.0, 0.0, 0.0);
+    //    GLfloat angle = 90;
+    //    for (double i = 0; i <= 360; i += 1)
+    //    {
+    //        float x_rotated = 20 * sin(i * 3.1415 / 180) * cos(angle * 3.14159f / 180) - 50 * cos(i * 3.1415 / 180) * sin(angle * 3.14159f / 180);
+    //        float y_rotated = 20 * sin(i * 3.1415 / 180) * sin(angle * 3.14159f / 180) + 50 * cos(i * 3.1415 / 180) * cos(angle * 3.14159f / 180);
+    //        glVertex2f(x_rotated, y_rotated);
     //    }
     //}
     //glEnd();
 
-    
+    //glBegin(GL_LINE_STRIP);
+    //{                       
+    //    glColor3f(0.0, 1.0, 1.0);
+    //    for (double i = 0; i <= 360; i += 1)
+    //    {
+    //        for (double j = 0; j <= 360; j += 1) {
+
+
+    //            GLfloat angle = j;
+    //            float x_rotated = 20 * sin(i * 3.1415 / 180) * cos(angle * 3.14159f / 180) - 50 * cos(i * 3.1415 / 180) * sin(angle * 3.14159f / 180);
+    //            float y_rotated = 20 * sin(i * 3.1415 / 180) * sin(angle * 3.14159f / 180) + 50 * cos(i * 3.1415 / 180) * cos(angle * 3.14159f / 180);
+    //            glVertex2f(x_rotated, y_rotated);
+    //        }
+    //    }
+    //}
+    //glEnd();
+}
+
+
+void CALLBACK display()
+{
+    glClear(GL_COLOR_BUFFER_BIT);
+    glLoadIdentity();
+    glTranslatef(x, y, 0.0);
+    glRotatef(r, 0, 0, 1);
+
+    test();
+
     glFlush();
 }
 
