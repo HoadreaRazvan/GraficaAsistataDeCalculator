@@ -85,11 +85,13 @@ void CALLBACK cilindru()
 
 void CALLBACK sfera()
 {
-    for (double i = 160; i <= 380; i += 1) //160 380
+    for (double j = 0; j <= 180; j += 15)
+
     {
         glBegin(GL_LINE_STRIP);
         {    
-            for (double j = 0; j <= 180; j += 1)
+            for (double i = 0; i <= 360; i += 1) //160 380
+
             {
                 glColor3f(1 - (i - 180) / 180, (i - 180) / 180, i / 180);
                 float x_rotated = (0 + 20 * sin(j * 3.14159 / 180)) * sin(i * 3.14159 / 180) * cos(j * 3.14159 / 180) - 50 * cos(i * 3.14159 / 180) * sin(j * 3.14159 / 180);
@@ -118,21 +120,21 @@ void CALLBACK test()
     //}
     //glEnd();
 
-    GLfloat r = 160, rr = 0;
+    GLfloat r = 200, rr = 0;
     glBegin(GL_LINE_STRIP);
-    for (int i = 0; i <= 360; i += 1)
+    for (int i = 0; i <= 360/2; i += 5)
     {
         rr = 0;
 
-        for (int j = -r / 2; j <= r / 2; j += r * 0.2) {
+        for (int j = -r / 2; j <= r*0.60 ; j += r * 0.1) {
             if (j == -r / 2)
                 glColor3f(1.0, 0.0, 0.0);
             else
-                if (j == r / 2)
+                if (j == r * 0.60)
                     glColor3f(1.0, 1.0, 0.0);
 
             glVertex2f(j + rr * 0.3 * cos(i * 3.1415 / 180), rr * sin(i * 3.1415 / 180));
-            rr += 10;
+            rr +=cos(i*3.14159/180)*j*0.5;
         }
     }
     glEnd();
@@ -146,7 +148,7 @@ void CALLBACK display()
     glTranslatef(x, y, 0.0);
     glRotatef(r, 0, 0, 1);
 
-    sfera();
+    test();
 
     glFlush();
 }
