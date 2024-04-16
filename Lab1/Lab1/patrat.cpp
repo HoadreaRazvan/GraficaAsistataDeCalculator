@@ -70,8 +70,8 @@ void CALLBACK display()
 
     //conteaza ordinea
     //glLoadIdentity(); sfera ramane nemiscata
-    glColor3f(0.2, 0.3, 0.5);
-    auxWireSphere(100);
+    //glColor3f(0.2, 0.3, 0.5);
+    //auxWireSphere(100);
 
     glEnd();
 
