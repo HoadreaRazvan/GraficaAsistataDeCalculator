@@ -76,8 +76,12 @@ void CALLBACK cilindru()
 
             glColor3f(1.0, 0.0, 0.0);
             glVertex2f(50 * cos(i * 3.1415 / 180), 30 * sin(i * 3.1415 / 180));
+            Sleep(70);
+
             glColor3f(1.0, 1.0, 0.0);
             glVertex2f(0 + 50 * cos(i * 3.1415 / 180) * 1.0, 100 + 30 * sin(i * 3.1415 / 180) * 1.0);
+            Sleep(70);
+
         }
     }
     glEnd();
@@ -148,7 +152,7 @@ void CALLBACK display()
     glTranslatef(x, y, 0.0);
     glRotatef(r, 0, 0, 1);
 
-    test();
+    cilindru();
 
     glFlush();
 }
