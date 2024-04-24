@@ -4,7 +4,7 @@
 #include "glu.h"
 #include "glaux.h"
 
-static int alfaX = 0.0f, alfaY = 0.0f, alfaZ = 0.0f,l=100;
+static int alfaX = 0.0f, alfaY = 0.0f, alfaZ = 0.0f,l=200;
 
 void myInit() {
     glClearColor(1.0, 1.0, 1.0, 1.0);
@@ -55,8 +55,9 @@ void CALLBACK display()
 
     glColor3f(1.0, 0.0, 0.0);
 
-    auxWireCube(l);
+    auxWireCube(l);//cubul
 
+    //diagonalele
     glBegin(GL_LINES);
     {
         glVertex3f(l/2, -l / 2, -l / 2);
@@ -77,8 +78,8 @@ void CALLBACK display()
     glEnd();
     glBegin(GL_LINES);
     {
-        glVertex3f(-l / 2, -l / 2, l / 2);
-        glVertex3f(-l / 2, l / 2, -l / 2);
+        glVertex3f(-l / 2, -l / 2, -l / 2);
+        glVertex3f(-l / 2, l / 2, l / 2);
     }
     glEnd();
     glBegin(GL_LINES);
