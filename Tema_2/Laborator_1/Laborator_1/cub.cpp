@@ -131,7 +131,7 @@ void CALLBACK display()
 	glLineStipple(1, 1);
 	glEnable(GL_LINE_STIPPLE);
 
-	glColor3f(1, 0, 0);
+	glColor3f(1, 0, 1);
 	cub();
 
 
