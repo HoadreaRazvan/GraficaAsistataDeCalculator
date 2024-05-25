@@ -37,12 +37,8 @@ void myInit()
 {
 	glClearColor(0.0, 0.0, 0.0, 1.0);
 
-	textureId1 = incarcaTextura("covor.bmp");
-	textureId2 = incarcaTextura("parchet.bmp");
-	textureId3 = incarcaTextura("covor.bmp");
-	textureId4 = incarcaTextura("parchet.bmp");
-	textureId5 = incarcaTextura("covor.bmp");
-	textureId6 = incarcaTextura("parchet.bmp");
+	textureId1 = incarcaTextura("C:\\Users\\hoadr\\Downloads\\New Project.bmp");
+
 
 	glEnable(GL_TEXTURE_2D);
 	glShadeModel(GL_FLAT);

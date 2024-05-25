@@ -152,14 +152,6 @@
   <ItemGroup>
     <ClCompile Include="cub.cpp" />
   </ItemGroup>
-  <ItemGroup>
-    <CopyFileToFolders Include="1.bmp" />
-    <CopyFileToFolders Include="2.bmp" />
-    <CopyFileToFolders Include="3.bmp" />
-    <CopyFileToFolders Include="4.bmp" />
-    <CopyFileToFolders Include="5.bmp" />
-    <CopyFileToFolders Include="6.bmp" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

@@ -173,8 +173,8 @@ void desenareModel(bool umbra) {
 	glTranslatef(modelX, -30, 0);
 	glRotatef(angle, 1, 1, 0);
 
-	//deseneazaCilindru();
-	glutSolidCube(25.0);
+	deseneazaCilindru();
+	//glutSolidCube(25.0);
 	//glutSolidTeapot(25.0);
 	glPopMatrix();
 }
@@ -242,7 +242,7 @@ void CALLBACK myReshape(GLsizei w, GLsizei h) {
 }
 
 int main(int argc, char** argv) {
-	auxInitDisplayMode(AUX_DOUBLE | AUX_DEPTH16 | AUX_RGB);
+	auxInitDisplayMode(AUX_DOUBLE | AUX_DEPTH24 | AUX_RGB);
 	auxInitPosition(10, 10, 1200, 800);
 	auxKeyFunc(AUX_RIGHT, mutaDreapta);
 	auxKeyFunc(AUX_LEFT, mutaStanga);
