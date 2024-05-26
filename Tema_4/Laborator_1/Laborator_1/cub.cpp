@@ -37,7 +37,7 @@ void myInit()
 {
 	glClearColor(0.0, 0.0, 0.0, 1.0);
 
-	textureId1 = incarcaTextura("C:\\Users\\hoadr\\Downloads\\New Project.bmp");
+	textureId1 = incarcaTextura("C:\\Users\\hoadr\\OneDrive\\Pictures\\Wallpaper.png");
 
 
 	glEnable(GL_TEXTURE_2D);
