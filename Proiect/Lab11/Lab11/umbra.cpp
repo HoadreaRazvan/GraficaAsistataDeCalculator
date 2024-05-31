@@ -21,6 +21,7 @@ static float unghiRoti = 0;
 static float rotX = 0;
 static float rotY = 0;
 static float rotZ = 0;
+static float viz = 1;
 
 GLfloat punctePlanIarba[][3] = {
 	{ -1500.0f, -60.0f, -1500.0f },
@@ -117,6 +118,11 @@ void CALLBACK rotireZ()
 void CALLBACK rotirez()
 {
 	rotZ = rotZ + 2;
+}
+
+void CALLBACK fViz()
+{
+	viz = !viz;
 }
 
 
@@ -596,8 +602,16 @@ void CALLBACK display(void) {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	glLoadIdentity();
+
 	glTranslatef(0, 0, -150);
 	glRotatef(15, 1, 0, 0);
+
+	if (viz) 
+		gluLookAt(0.0, 0.0, 9.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
+	else 
+		gluLookAt(0.0, 0.0, -9.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
+	
+
 
 	computeShadowMatrix(punctePlanIarba, lightSourcePosition);
 
@@ -658,6 +672,8 @@ int main(int argc, char** argv) {
 	auxKeyFunc(AUX_h, rotirez);
 	auxKeyFunc(AUX_Y, rotireZ);
 	auxKeyFunc(AUX_H, rotirez);
+	auxKeyFunc(AUX_f, fViz);
+	auxKeyFunc(AUX_F, fViz);
 
 	auxKeyFunc(AUX_w, mutaSursaSpate);
 	auxKeyFunc(AUX_s, mutaSursaFata);
