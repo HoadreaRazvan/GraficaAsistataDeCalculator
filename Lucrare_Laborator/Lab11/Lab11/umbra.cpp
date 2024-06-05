@@ -22,6 +22,7 @@ static float rotX = 0;
 static float rotY = 0;
 static float rotZ = 0;
 static float viz = 1;
+static float culoare = 0;
 
 GLfloat punctePlanIarba[][3] = {
 	{ -1500.0f, -60.0f, -1500.0f },
@@ -32,7 +33,9 @@ GLfloat punctePlanIarba[][3] = {
 
 float coeficientiPlanIarba[4];
 float matriceUmbrire[4][4];
-
+void CALLBACK schimbaCuloare() {
+	culoare =!culoare;
+}
 void CALLBACK mutaSursaFata() {
 	if (lightSourcePosition[z] < 100) {
 		lightSourcePosition[z] += 5;
@@ -204,11 +207,149 @@ void myInit(void) {
 	glColorMaterial(GL_FRONT, GL_AMBIENT_AND_DIFFUSE);
 
 	glEnable(GL_DEPTH_TEST);
+	glEnable(GL_TEXTURE_2D);
 
 	glShadeModel(GL_SMOOTH);
 }
 
+void piramida(bool umbra) {
 
+	GLfloat vertices[][3] = {
+	{ -30, 0, -30},
+	{ -30, 0,  30},
+	{  30, 0,  30},
+	{  30, 0,  -30},
+	{  0, 60,  0}
+	};
+
+
+	if (umbra == false)glColor3f(0, 0.2, 1);
+	glBegin(GL_TRIANGLE_STRIP);
+	{
+		glVertex3fv(vertices[4]);
+		glVertex3fv(vertices[0]);
+		glVertex3fv(vertices[1]);
+	}
+	glEnd();
+
+	if (umbra == false)glColor3f(1, 0.2, 1);
+	glBegin(GL_TRIANGLE_STRIP);
+	{
+		glVertex3fv(vertices[4]);
+		glVertex3fv(vertices[1]);
+		glVertex3fv(vertices[2]);
+	}
+	glEnd();
+
+	if (umbra == false)glColor3f(1, 0.2, 0.1);
+	glBegin(GL_TRIANGLE_STRIP);
+	{
+		glVertex3fv(vertices[4]);
+		glVertex3fv(vertices[2]);
+		glVertex3fv(vertices[3]);
+	}
+	glEnd();
+
+	if (umbra == false)glColor3f(0.1, 0.5, 1);
+	glBegin(GL_TRIANGLE_STRIP);
+	{
+		glVertex3fv(vertices[4]);
+		glVertex3fv(vertices[3]);
+		glVertex3fv(vertices[0]);
+	}
+	glEnd();
+
+	if (umbra == false)glColor3f(0.1, 0.5, 0.2);
+	glBegin(GL_POLYGON);
+	{
+		glVertex3fv(vertices[0]);
+		glVertex3fv(vertices[1]);
+		glVertex3fv(vertices[2]);
+		glVertex3fv(vertices[3]);
+	}
+	glEnd();
+}
+GLuint textureId1;
+GLuint incarcaTextura(const char* s)
+{
+	GLuint textureId = 0;
+	AUX_RGBImageRec* pImagineTextura = auxDIBImageLoad(s);
+
+	if (pImagineTextura != NULL)
+	{
+		glGenTextures(1, &textureId);
+		glBindTexture(GL_TEXTURE_2D, textureId);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+		glTexImage2D(GL_TEXTURE_2D, 0, 3, pImagineTextura->sizeX, pImagineTextura->sizeY,
+			0, GL_RGB, GL_UNSIGNED_BYTE, pImagineTextura->data);
+	}
+	if (pImagineTextura)
+	{
+		if (pImagineTextura->data) {
+			free(pImagineTextura->data);
+		}
+		free(pImagineTextura);
+	}
+	return textureId;
+}
+void planeta(bool umbra) //f scena   g culoare
+{
+	GLUquadric* figura = gluNewQuadric();
+	gluQuadricDrawStyle(figura, GLU_FILL);
+
+	//planeta
+	if (umbra == false) glColor3f(1, 0.8, 1);
+	gluSphere(figura,30,20,10);
+	glRotatef(90, 0, 1, 0);
+	glRotatef(40 * sin(unghiRoti*3.14/180), 1, 0, 0);
+	glTranslatef(0, 40, 0); 
+	
+	//om
+	if (umbra == false) glColor3f(!culoare, culoare/2, culoare/100);
+	glRotatef(90, 1, 0, 0);
+	gluCylinder(figura, 1,10, 20, 10, 10);
+	glRotatef(-90, 1, 0, 0);
+	glTranslatef(0, -40, 0);
+	glRotatef(-40*sin(unghiRoti * 3.14 / 180), 1, 0, 0);
+	glRotatef(270, 0, 1, 0);
+
+	
+	//tv
+	glTranslatef(-30, 20, 10);
+	glRotatef(90, 1, 0, 0);
+	glRotatef(60, 0, 1, 0);
+
+	
+	glBindTexture(GL_TEXTURE_2D, textureId1);
+	textureId1 = incarcaTextura("parchet.bmp");
+	gluQuadricTexture(figura, GL_TRUE);
+
+	if (umbra == false) glColor3f(1, 0.8, 0);
+	gluCylinder(figura, 10, 10, 20, 4, 10);
+	glBindTexture(GL_TEXTURE_2D, 0);
+
+	glRotatef(-90, 1, 0, 0);
+	glRotatef(-60, 0, 1, 0);
+	glTranslatef(30, -20, 0);
+
+	glRotatef(90, 1, 0, 0);
+
+	glTranslatef(30, 10, 20);
+
+	//pat
+	glRotatef(100, 1, 0, 0);
+	if (umbra == false) glColor3f(0, 0.8, 1);
+	gluCylinder(figura, 5, 5, 10, 4, 10);
+
+
+
+	//gluDisk(figura, 0.2, 0.3, 50, 20);
+	//gluSphere(figura, 0.5, 10, 10);
+	//auxWireSphere(0.5);
+
+	gluDeleteQuadric(figura);
+}
 void desenareTren(bool umbra)
 {
 	if (umbra == false) glColor3f(0.2, 0.2, 0.2);
@@ -556,7 +697,7 @@ void desenareTren(bool umbra)
 
 void desenareModel(bool umbra) {
 	if (umbra) {
-		glColor3f(0, 0.15, 0.05);
+		glColor3f(0, 0.15, 0.02);
 	}
 
 	glPushMatrix();
@@ -567,7 +708,7 @@ void desenareModel(bool umbra) {
 	glRotatef(rotZ, 0, 0, 1);
 
 	glTranslatef(0, 20, 0);
-	desenareTren(umbra);
+	planeta(umbra);
 	glTranslatef(0, -20, 0);
 
 	glPopMatrix();
@@ -575,7 +716,7 @@ void desenareModel(bool umbra) {
 
 void desenareIarba() {
 	glPushMatrix();
-	glColor3f(0, 0.3, 0);
+	glColor3f(0, 0.6, 0);
 	glTranslatef(0, -0.1, 0);
 	glBegin(GL_QUADS);
 	{
@@ -623,10 +764,6 @@ void CALLBACK display(void) {
 	//deseneaza umbra
 	glDisable(GL_LIGHTING);
 
-	glPushMatrix();
-	glMultMatrixf((GLfloat*)matriceUmbrire); // se inmulteste matricea curenta cu matricea de umbrire
-	desenareModel(true);
-	glPopMatrix();
 	deseneazaLumina();
 
 	glEnable(GL_LIGHTING);
@@ -635,7 +772,7 @@ void CALLBACK display(void) {
 }
 void CALLBACK IdleFunction()
 {
-	unghiRoti -= 2;
+	unghiRoti += 2;
 	display();
 	Sleep(1000 / 60);
 }
@@ -673,6 +810,8 @@ int main(int argc, char** argv) {
 	auxKeyFunc(AUX_H, rotirez);
 	auxKeyFunc(AUX_f, fViz);
 	auxKeyFunc(AUX_F, fViz);
+	auxKeyFunc(AUX_g, schimbaCuloare);
+	auxKeyFunc(AUX_G, schimbaCuloare);
 
 	auxKeyFunc(AUX_w, mutaSursaSpate);
 	auxKeyFunc(AUX_s, mutaSursaFata);
@@ -682,7 +821,7 @@ int main(int argc, char** argv) {
 	auxKeyFunc(AUX_S, mutaSursaFata);
 	auxKeyFunc(AUX_D, mutaSursaDreapta);
 	auxKeyFunc(AUX_A, mutaSursaStanga);
-	auxInitWindow("Umbra");
+	auxInitWindow("Hoadrea Razvan Bucur");
 	myInit();
 	auxReshapeFunc(myReshape);
 	auxIdleFunc(IdleFunction);
